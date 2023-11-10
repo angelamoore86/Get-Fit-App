@@ -1,6 +1,6 @@
 const ProfilePage = () => {
     return (
-        <h1>User Profile Page</h1>
+        <h1>Profile Page</h1>
     );
 }
 
