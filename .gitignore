@@ -11,6 +11,9 @@ mongo-db-data
 
 # production
 /build
+/frontend/build
+/backend/build
+.env
 
 # misc
 .DS_Store
