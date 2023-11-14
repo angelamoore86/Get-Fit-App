@@ -19,7 +19,7 @@ function App() {
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/fitnessgoal" element={<FitnessGoalPage />} />
             <Route path="/fitnesslog" element={<FitnessLogPage />} />
-            <Route path="/intake" element={<IntakeLogPage />} />
+            <Route path="/intakelog" element={<IntakeLogPage />} />
             <Route path="*" element={<NotFoundPage/>} />
           </Routes> 
         </div>
@@ -29,4 +29,3 @@ function App() {
 }
 
 export default App;
-
