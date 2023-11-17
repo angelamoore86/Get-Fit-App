@@ -8,20 +8,16 @@ const NavBar = () => {
                     <Link to='/'>Home</Link>
                 </li>
                 <li>
+                    <Link to='/intakelog'>Food</Link>
+                </li>
+                <li>
+                    <Link to='/fitnesslog'>Exercise</Link>
+                </li>
+                <li>
                     <Link to='/profile'>Profile</Link>
-                </li>
-                <li>
-                    <Link to='/fitnessgoal'>Fitness Goal</Link>
-                </li>
-                <li>
-                    <Link to='/fitnesslog'>Fitness Log</Link>
-                </li>
-                <li>
-                    <Link to='/intakelog'>Intake Log</Link>
-                </li>
+                </li>   
             </ul>
         </nav>
-        
     );
 }
 
