@@ -1,11 +1,19 @@
 import express from 'express';
+import { routes } from './routes/index.js';
+import {initializeDbConnection} from "./db.js";
 
+const PORT = process.env.PORT || 8000;
 const app = express();
 
-app.get('/hello', (req, res) => {
-    res.send('Hello!');
+app.use(express.json());
+
+routes.forEach(route => {
+    app[route.method](route.path, route.handler);
 });
 
-app.listen(8000, () => {
-    console.log('Server is listening on port 8000');
-});
+initializeDbConnection()
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log(`Server is listening on port ${PORT}`);
+        });
+    });

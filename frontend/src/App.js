@@ -7,6 +7,7 @@ import FitnessLogPage from './pages/FitnessLogPage';
 import IntakeLogPage from './pages/IntakeLogPage';
 import FitnessGoalPage from './pages/FitnessGoalPage';
 import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
         <NavBar />
         <div id="page-body">
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/fitnessgoal" element={<FitnessGoalPage />} />

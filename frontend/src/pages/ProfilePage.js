@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import FitnessGoalForm from '../components/FitnessGoalForm';
@@ -9,10 +10,10 @@ const ProfilePage = () => {
     const [goals, setGoals] = useState({});
     const [profileUpdate, setProfileUpdate] = useState(false);
     const [goalUpdate, setGoalUpdate] = useState(false);
-    
+    const {username} = useParams();
 
     useEffect( () => {
-        axios.get('/api/userprofile')
+        axios.get(`/api/userprofile/${username}`)
         .then((response) => {
             setProfile(response.data);
         })
@@ -20,7 +21,7 @@ const ProfilePage = () => {
             console.error('Error. Could not get profile:', error);
         });
 
-        axios.get('/api/usergoals')
+        axios.get(`/api/usergoals/${username}`)
         .then((response) => {
             setGoals(response.data);
         })
@@ -30,7 +31,7 @@ const ProfilePage = () => {
     }, []);
 
     const handleOnProfileUpdate = (updatedProfile) => {
-        axios.put('/api/updateprofile', updatedProfile)
+        axios.put(`/api/updateprofile/${username}`, updatedProfile)
         .then((response) => {
             setProfile(response.data);
             setProfileUpdate(false);
@@ -40,7 +41,7 @@ const ProfilePage = () => {
         });
     };
     const handleOnGoalUpdate = (updatedGoals) => {
-        axios.put('/api/updategoals', updatedGoals)
+        axios.put(`/api/updategoals/${username}`, updatedGoals)
         .then((response) => {
             setGoals(response.data);
             setGoalUpdate(false);
@@ -68,6 +69,7 @@ const ProfilePage = () => {
                 <ProfileForm onCancel={() => setProfileUpdate(false)} onUpdateProfile={handleOnProfileUpdate}/>
             ) : (
                 <div>
+                    <p>Name: {profile.name}</p>
                     <p>Age: {profile.age}</p>
                     <p>Gender: {profile.gender}</p>
                     <p>Weight: {profile.weight}</p>
@@ -81,3 +83,5 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+export default ProfilePage;   
