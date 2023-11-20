@@ -1,13 +1,11 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
+  margin: 20px;
+  padding: 10px;
 }
 div {
-<<<<<<< HEAD
-  text-align: right;
-=======
   text-align: center;
->>>>>>> origin/development
 }
 p, .right {
   margin-bottom: 10px;
@@ -24,8 +22,6 @@ button {
   cursor: pointer;
 }
 
-<<<<<<< HEAD
-=======
 .login-with-google-btn {
   transition: background-color .3s, box-shadow .3s;
 
@@ -68,10 +64,8 @@ button {
   }
 }
 
->>>>>>> origin/development
 h1, h2, h3, h4 {
   margin: 10px;
-  
   text-align: center;
 }
 
