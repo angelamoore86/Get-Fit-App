@@ -27,6 +27,8 @@ const ProfileForm = ({ onCancel, onUpdateProfile }) => {
         <h3>Edit Profile</h3>
             <h3>Please update your profile information below.</h3>
             <div class="right">
+
+                <label>Name: <input type="text" name="name" value={profile.name} onChange={handleInputChange} /></label><br />
                 <label>Age: <input type="text" name="age" value={profile.age} onChange={handleInputChange} /></label><br />
                 <label>Gender: <input type="text" name="gender" value={profile.age} onChange={handleInputChange} /></label><br />
                 <label>Weight: <input type="text" name="weight" value={profile.age} onChange={handleInputChange} /></label><br />

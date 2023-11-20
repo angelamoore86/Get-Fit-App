@@ -1,5 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PrivateRoute } from './PrivateRoute';
 import NavBar from './NavBar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
@@ -18,10 +19,33 @@ function App() {
           <Routes>
             <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route 
+              path="/profile" 
+              element={
+                <PrivateRoute>
+                  <ProfilePage />
+                </PrivateRoute>
+              } 
+            />
             <Route path="/fitnessgoal" element={<FitnessGoalPage />} />
-            <Route path="/fitnesslog" element={<FitnessLogPage />} />
-            <Route path="/intakelog" element={<IntakeLogPage />} />
+
+            <Route 
+              path="/fitnesslog" 
+              element={
+                <PrivateRoute>
+                  <FitnessLogPage />
+                </PrivateRoute>
+              } 
+            />
+            <Route 
+              path="/intakelog" 
+              element={
+                <PrivateRoute>
+                  <IntakeLogPage />
+                </PrivateRoute>
+              } 
+            />
             <Route path="*" element={<NotFoundPage/>} />
           </Routes> 
         </div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import FitnessGoalForm from '../components/FitnessGoalForm';
@@ -30,6 +31,7 @@ const ProfilePage = () => {
     }, []);
 
     const handleOnProfileUpdate = (updatedProfile) => {
+      
         axios.put('/api/updateprofile', updatedProfile)
         .then((response) => {
             setProfile(response.data);
@@ -40,6 +42,7 @@ const ProfilePage = () => {
         });
     };
     const handleOnGoalUpdate = (updatedGoals) => {
+
         axios.put('/api/updategoals', updatedGoals)
         .then((response) => {
             setGoals(response.data);
@@ -68,6 +71,7 @@ const ProfilePage = () => {
                 <ProfileForm onCancel={() => setProfileUpdate(false)} onUpdateProfile={handleOnProfileUpdate}/>
             ) : (
                 <div>
+                    <p>Name: {profile.name}</p>
                     <p>Age: {profile.age}</p>
                     <p>Gender: {profile.gender}</p>
                     <p>Weight: {profile.weight}</p>
@@ -80,4 +84,4 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage;
+export default ProfilePage; 

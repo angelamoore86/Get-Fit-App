@@ -1,6 +1,15 @@
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   font-size: 18px;
+  margin: 20px;
+  padding: 10px;
+}
+div {
+  text-align: center;
+}
+p, .right {
+  margin-bottom: 10px;
+  text-align: left;
 }
 div {
   text-align: center;
@@ -64,7 +73,6 @@ button {
 
 h1, h2, h3, h4 {
   margin: 10px;
-  
   text-align: center;
 }
 

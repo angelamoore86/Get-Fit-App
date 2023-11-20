@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
+import { LogOutButton } from './components/LogOutButton';
+
 
 const NavBar = () => {
     return (
+        
         <nav>
             <ul>
                 <li>
@@ -16,7 +19,10 @@ const NavBar = () => {
                 <li>
                     <Link to='/profile'>Profile</Link>
                 </li>   
-            </ul>
+                <li >
+                    <LogOutButton />
+                </li>
+            </ul>   
         </nav>
     );
 }
