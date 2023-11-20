@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import FitnessGoalForm from '../components/FitnessGoalForm';
@@ -10,10 +10,10 @@ const ProfilePage = () => {
     const [goals, setGoals] = useState({});
     const [profileUpdate, setProfileUpdate] = useState(false);
     const [goalUpdate, setGoalUpdate] = useState(false);
-    const {username} = useParams();
+    
 
     useEffect( () => {
-        axios.get(`/api/userprofile/${username}`)
+        axios.get('/api/userprofile')
         .then((response) => {
             setProfile(response.data);
         })
@@ -21,7 +21,7 @@ const ProfilePage = () => {
             console.error('Error. Could not get profile:', error);
         });
 
-        axios.get(`/api/usergoals/${username}`)
+        axios.get('/api/usergoals')
         .then((response) => {
             setGoals(response.data);
         })
@@ -31,7 +31,8 @@ const ProfilePage = () => {
     }, []);
 
     const handleOnProfileUpdate = (updatedProfile) => {
-        axios.put(`/api/updateprofile/${username}`, updatedProfile)
+      
+        axios.put('/api/updateprofile', updatedProfile)
         .then((response) => {
             setProfile(response.data);
             setProfileUpdate(false);
@@ -41,7 +42,8 @@ const ProfilePage = () => {
         });
     };
     const handleOnGoalUpdate = (updatedGoals) => {
-        axios.put(`/api/updategoals/${username}`, updatedGoals)
+
+        axios.put('/api/updategoals', updatedGoals)
         .then((response) => {
             setGoals(response.data);
             setGoalUpdate(false);
@@ -82,6 +84,4 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage;
-
-export default ProfilePage;   
+export default ProfilePage; 
