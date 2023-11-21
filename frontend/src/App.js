@@ -17,6 +17,7 @@ function App() {
         <NavBar />
         <div id="page-body">
           <Routes>
+            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route 
@@ -28,6 +29,7 @@ function App() {
               } 
             />
             <Route path="/fitnessgoal" element={<FitnessGoalPage />} />
+
             <Route 
               path="/fitnesslog" 
               element={

@@ -11,6 +11,13 @@ p, .right {
   margin-bottom: 10px;
   text-align: left;
 }
+div {
+  text-align: center;
+}
+p, .right {
+  margin-bottom: 10px;
+  text-align: left;
+}
 
 button {
   padding: 12px;

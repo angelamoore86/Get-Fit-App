@@ -22,9 +22,7 @@ const NavBar = () => {
                 <li >
                     <LogOutButton />
                 </li>
-            </ul>
-            
-            
+            </ul>   
         </nav>
     );
 }
