@@ -22,7 +22,7 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
     return (
         <div>
             <h3>Your Fitness Goals</h3>
-            <div class="right">
+            <div className="right">
                 <label>Goal 1: <input type="text" name="goal1" value={goals.goal1} onChange={handleInputChange} /></label><br />
                 <label>Goal 2: <input type="text" name="goal2" value={goals.goal2} onChange={handleInputChange} /></label><br />
                 <label>Goal 3: <input type="text" name="goal3" value={goals.goal3} onChange={handleInputChange} /></label><br />

@@ -23,6 +23,8 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
             googleId,
             isVerified,
             info: {},
+            profile: {},
+            goals: {},
         });
         return result.ops[0];
     }
