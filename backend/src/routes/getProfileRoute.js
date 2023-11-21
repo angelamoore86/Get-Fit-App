@@ -3,7 +3,7 @@ import { ObjectId } from 'mongodb';
 import jwt from 'jsonwebtoken';
 
 export const getProfileRoute = {
-    path: '/api/usersprofile/:userId',
+    path: '/api/userprofile/:userId',
     method: 'get', 
     handler: async (req, res) => {
         const { authorization } = req.headers;
