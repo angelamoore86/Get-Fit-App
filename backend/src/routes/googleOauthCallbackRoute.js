@@ -7,20 +7,26 @@ export const googleOauthCallbackRoute = {
     path: '/auth/google/callback',
     method: 'get',
     handler: async (req, res) => {
+        
         const { code } = req.query;
 
         const oauthUserInfo = await getGoogleUser({ code });
-        const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo }) || {};
-        const { _id: id, isVerified, email, info } = updatedUser;
+        console.log('Code:', code);
+        console.log('OauthUserInfo: ', oauthUserInfo);
 
+        const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo }) || {};
+        console.log('Updated User:', updatedUser);
+
+        const { _id: id, isVerified, email, info, profile, goals } = updatedUser;
+        
         jwt.sign({
-            id, isVerified, email, info
+            id, isVerified, email, info, profile, goals
         },
-            process.env.JWT_SECRET,
+        process.env.JWT_SECRET,
             { expiresIn: '2d'},
             (err, token) => {
             if (err) return res.sendStatus(500);
-                res.redirect(`http://localhost:3000/login?token=${token}`)
-            });
+                res.redirect(`http://localhost:3000/login?token=${token}`);
+        }); 
     }
 }
