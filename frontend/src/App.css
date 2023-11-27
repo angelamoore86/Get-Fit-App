@@ -7,16 +7,17 @@ body {
 div {
   text-align: center;
 }
-p, .right {
+/* p, .right {
   margin-bottom: 10px;
   text-align: left;
 }
+.center {
+  margin: 10px;
+  text-align: center;
+  align-content: center;
+} */
 div {
   text-align: center;
-}
-p, .right {
-  margin-bottom: 10px;
-  text-align: left;
 }
 
 button {

@@ -4,22 +4,23 @@ const ProfileForm = ({ onCancel, onUpdateProfile }) => {
     const [profile, setProfile] = useState({
         name: '',
         age: '',
-        gender: '',
         weight: '',
         height: '',
     });
 
     const handleInputChange = (e) => {
         const {name, value} = e.target;
-        setProfile((profile) => ({
-            ...profile,
+        setProfile((prevProfile) => ({
+            ...prevProfile,
             [name]: value,
         }));
     };
-    
-    const handleOnUpdate = () => {
+   
+    const handleOnUpdate = (e) => {
+        e.preventDefault();
         onUpdateProfile(profile);
         onCancel();
+        window.location.reload(false);
     };
 
     return (
@@ -29,10 +30,9 @@ const ProfileForm = ({ onCancel, onUpdateProfile }) => {
             <div className="right">
 
                 <label>Name: <input type="text" name="name" value={profile.name} onChange={handleInputChange} /></label><br />
-                <label>Age: <input type="text" name="age" value={profile.age} onChange={handleInputChange} /></label><br />
-                <label>Gender: <input type="text" name="gender" value={profile.gender} onChange={handleInputChange} /></label><br />
-                <label>Weight: <input type="text" name="weight" value={profile.weight} onChange={handleInputChange} /></label><br />
-                <label>Height: <input type="text" name="height" value={profile.height} onChange={handleInputChange} /></label><br />
+                <label>Age: <input type="number" name="age" value={profile.age} onChange={handleInputChange} /></label><br />
+                <label>Weight(kg): <input type="number" name="weight" value={profile.weight} onChange={handleInputChange} /></label><br />
+                <label>Height(cm): <input type="number" name="height" value={profile.height} onChange={handleInputChange} /></label><br />
             </div>
             <button onClick={handleOnUpdate}>Update Profile</button>
             <button onClick={onCancel}>Cancel</button>

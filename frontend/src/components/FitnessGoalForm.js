@@ -9,15 +9,19 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setGoals((goals) => ({
-            ...goals,
+        setGoals((prevGoals) => ({
+            ...prevGoals,
             [name]: value,
         }));
     };
 
-    const handleUpdateGoals = () => {
-        onUpdateGoals(goals);
+    const handleUpdateGoals = (e) => {
+        const updatedGoals = Object.fromEntries(
+            Object.entries(goals).filter(([_, value]) => value !== '')
+            );
+        onUpdateGoals(updatedGoals);
         onCancel();
+        window.location.reload(false);
     }
     return (
         <div>
