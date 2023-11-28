@@ -14,7 +14,7 @@ export const useUser = () => {
         const payload = getPayloadFromToken(token);
         console.log('Token payload:', payload);
         return { ...payload, _id: payload._id};
-        
+
     });
 
     useEffect(() => {

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 
 export const getProfileRoute = {
     path: '/api/profile',
-    method: 'get', 
+    method: 'get',
     handler: async (req, res) => {
         const { authorization } = req.headers;
         const token = authorization.split(' ')[1];
@@ -17,7 +17,7 @@ export const getProfileRoute = {
             const email = decodedToken.email;
 
             const db = getDbConnection('react-auth-db');
-            
+
             const user = await db.collection('users').findOne({ email });
 
             if (!user) {
@@ -25,11 +25,12 @@ export const getProfileRoute = {
             }
             const {profile, goals} = user;
 
-            res.status(200).json({ 
-                    email,
-                    profile,
-                    goals
-                });
+            res.status(200).json({
+                email,
+                profile,
+                goals
+            });
+
         } catch (error){
             console.error("Error:", error.message);
             return res.status(500).json({error: "Internal Server Error"});

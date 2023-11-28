@@ -1,9 +1,12 @@
 import { getDbConnection } from '../db.js';
 import jwt from 'jsonwebtoken';
+import {ObjectId} from "mongodb";
 
 export const getGoalRoute = {
     path: '/api/usergoals',
-    method: 'get', 
+
+    method: 'get',
+
     handler: async (req, res) => {
         const { authorization } = req.headers;
 
@@ -21,7 +24,7 @@ export const getGoalRoute = {
             const { _id: id } = decoded;
 
             const db = getDbConnection('react-auth-db');
-        
+
             const user = await db.collection('users').findOne({ _id: new ObjectId(id) });
 
             if (!user) {
@@ -29,6 +32,7 @@ export const getGoalRoute = {
             }
 
             const { email, profile, goals } = user;
+
 
             res.status(200).json({ email, profile, goals });
         });

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import BMICalculator from '../components/BMICalculator';
@@ -39,18 +40,19 @@ const ProfilePage = () => {
     const handleOnProfileUpdate = async (updatedProfile) => {
         try {
             const response = await axios.post('/api/updateprofile',
-                {profileData: updatedProfile }, 
+
+                {profileData: updatedProfile },
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setUserProfileData(response.data.profile);
-                setProfileUpdate(null);
-            } catch (error){
-                console.error('Error updating user profile', error.message);
-            }
-        };
+            setUserProfileData(response.data.profile);
+            setProfileUpdate(null);
+        } catch (error){
+            console.error('Error updating user profile', error.message);
+        }
+    };
 
     const handleOnGoalUpdate = async (updatedGoals) => {
         try {
@@ -61,12 +63,12 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setUserProfileData( response.data.goals);
-                setGoalUpdate(null);
-            } catch (error){
-                console.error('Error updating user profile', error);
-            }
-        };
+            setUserProfileData( response.data.goals);
+            setGoalUpdate(null);
+        } catch (error){
+            console.error('Error updating user profile', error);
+        }
+    };
 
     if (loading){
         return <p>loading...</p>
@@ -74,6 +76,7 @@ const ProfilePage = () => {
     if (error){
         return <p>{error}</p>
     }
+  
     return (
         <div>
             <h1>Your Profile</h1>
@@ -85,20 +88,18 @@ const ProfilePage = () => {
                     <p>Goal 1: {userProfileData.goals.goal1}</p>
                     <p>Goal 2: {userProfileData.goals.goal2}</p>
                     <p>Goal 3: {userProfileData.goals.goal3}</p>
-                    <button onClick={()=> setGoalUpdate({...userProfileData.goals})}>Update Goals</button>
+                    <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
                 </div>
             )}
             {profileUpdate ? (
-                <ProfileForm onCancel={() => setProfileUpdate(null)} onUpdateProfile={handleOnProfileUpdate}
-                    profile={setProfileUpdate}
-                />
+                <ProfileForm onCancel={() => setProfileUpdate(null)} onUpdateProfile={handleOnProfileUpdate}/>
             ) : (
                 <div>
                     <p>Name: {userProfileData.profile.name}</p>
                     <p>Age: {userProfileData.profile.age}</p>
                     <p>Weight(kg): {userProfileData.profile.weight}</p>
                     <p>Height(cm): {userProfileData.profile.height}</p>
-                    <button onClick={() => setProfileUpdate({...userProfileData.profile})}>Update Profile</button>
+                    <Button variant='primary' size='sm' onClick={() => setProfileUpdate(userProfileData.profile)}>Update Profile</Button>
                 </div>
             )}
             <BMICalculator weight={userProfileData.profile.weight} height={userProfileData.profile.height} />
