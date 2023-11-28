@@ -18,6 +18,7 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
         const updatedGoals = Object.fromEntries(
             Object.entries(goals).filter(([_, value]) => value !== '')
         );
+
         onUpdateGoals(updatedGoals);
         onCancel();
         window.location.reload(false);

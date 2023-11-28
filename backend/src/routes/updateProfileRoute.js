@@ -28,6 +28,7 @@ export const updateProfileRoute = {
             if (!result.value){
                 return res.status(404).json({message: 'Profile not found.'});
             }
+
             return res.status(200).json({message: 'Profile has bee updated.'});
         } catch (error) {
             return res.status(500).json({error: "Internal Server Error"});

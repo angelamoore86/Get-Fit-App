@@ -25,9 +25,11 @@ export const updateGoalRoute = {
                 { returnDocument: 'after'}
             );
 
+
             if (!result.value){
                 return res.status(404).json({message: 'Profile not found.'});
             }
+
             return res.status(200).json({message: 'Goals has been updated.'});
         } catch (error) {
             console.error("Error", error.message);

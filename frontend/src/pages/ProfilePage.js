@@ -1,12 +1,10 @@
-import { useUser } from '../useUser';
 import { useState, useEffect } from 'react';
 import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
-import FitnessGoalForm from '../components/FitnessGoalForm';
 import BMICalculator from '../components/BMICalculator';
+import FitnessGoalForm from '../components/FitnessGoalForm';
 import { useToken } from '../useToken';
-
 
 const ProfilePage = () => {
     const [token,  ] = useToken();
@@ -42,6 +40,7 @@ const ProfilePage = () => {
     const handleOnProfileUpdate = async (updatedProfile) => {
         try {
             const response = await axios.post('/api/updateprofile',
+
                 {profileData: updatedProfile },
                 {
                     headers: {
@@ -77,7 +76,7 @@ const ProfilePage = () => {
     if (error){
         return <p>{error}</p>
     }
-
+  
     return (
         <div>
             <h1>Your Profile</h1>
@@ -108,4 +107,4 @@ const ProfilePage = () => {
     );
 };
 
-export default ProfilePage; 
+export default ProfilePage;

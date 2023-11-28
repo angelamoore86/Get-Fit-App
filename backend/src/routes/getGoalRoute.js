@@ -4,7 +4,9 @@ import {ObjectId} from "mongodb";
 
 export const getGoalRoute = {
     path: '/api/usergoals',
+
     method: 'get',
+
     handler: async (req, res) => {
         const { authorization } = req.headers;
 
@@ -30,6 +32,7 @@ export const getGoalRoute = {
             }
 
             const { email, profile, goals } = user;
+
 
             res.status(200).json({ email, profile, goals });
         });
