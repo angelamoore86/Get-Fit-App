@@ -4,11 +4,14 @@ import 'dotenv/config.js';
 let client;
 
 export const initializeDbConnection = async () => {
-    client = await MongoClient.connect(process.env.MONGO_CONNECT, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-    });
-}
+    try {
+        client = await MongoClient.connect(process.env.MONGO_CONNECT);
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("Failed to connect to MongoDB", error);
+    }
+};
+
 
 export const getDbConnection = dbName => {
     return client.db(dbName);
