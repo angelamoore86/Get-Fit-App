@@ -11,11 +11,8 @@ export const googleOauthCallbackRoute = {
         const { code } = req.query;
 
         const oauthUserInfo = await getGoogleUser({ code });
-        console.log('Code:', code);
-        console.log('OauthUserInfo: ', oauthUserInfo);
-
+        
         const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo }) || {};
-        console.log('Updated User:', updatedUser);
 
         const { _id: id, isVerified, email, info, profile, goals } = updatedUser;
         
