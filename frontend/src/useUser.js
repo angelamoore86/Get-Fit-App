@@ -14,7 +14,7 @@ export const useUser = () => {
         const payload = getPayloadFromToken(token);
         console.log('Token payload:', payload);
         return { ...payload, _id: payload._id};
-        
+
     });
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export const useUser = () => {
             setUser(null);
         } else {
             const payload = getPayloadFromToken(token);
-            console.log('Updated user:', {...payload, _id: payload._id });
+            console.log('Updated user:', payload);
             setUser({ ...payload, _id: payload._id });
         }
     }, [token]);

@@ -1,110 +1,109 @@
 import { useUser } from '../useUser';
-import { useToken } from '../useToken';
 import { useState, useEffect } from 'react';
+import { Button } from 'react-bootstrap'
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import FitnessGoalForm from '../components/FitnessGoalForm';
 import BMICalculator from '../components/BMICalculator';
+import { useToken } from '../useToken';
 
 
 const ProfilePage = () => {
-    const { user } = useUser();
-    const [token, setToken] = useToken();
-    const { _id: userId } = user || {};
+    const [token,  ] = useToken();
+    const [userProfileData, setUserProfileData] = useState({});
+    // const [profile, setProfile] = useState({});
+    // const [goals, setGoals] = useState({});
+    const [profileUpdate, setProfileUpdate] = useState(null);
+    const [goalUpdate, setGoalUpdate] = useState(null);
+    const [loading, setLoading ] = useState(true);
+    const [error, setError] = useState('');
 
-    const [userProfile, setUserProfile] = useState({});
-    const [userGoals, setUserGoals] = useState({});
-    const [profileUpdate, setProfileUpdate] = useState(false);
-    const [goalUpdate, setGoalUpdate] = useState(false);
-
-    useEffect( () => {
-
-        if (userId) {
-            const headers = { Authorization: `Bearer ${token}`};
-
-            axios.get(`/api/userprofile/${userId}`, { headers })
-                .then((response) => { 
-                    setUserProfile(response.data);
-                })
-                .catch((error) => {
-                    console.error('Error getting profile:', error);
+    useEffect(() => {
+        const getUserProfileData = async () => {
+            try {
+                const response = await axios.get(`/api/profile`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
-                   
-            axios.get(`/api/usergoals/${userId}`, { headers })
-                .then((response) => {
-                    setUserGoals(response.data);
-                })
-                .catch((error) => {
-                    console.error('Error getting goals:', error);
-                });
-        }
-    }, [userId, token]);
+                setUserProfileData((prevData) => ({
+                    profile: response.data.profile,
+                    goals: response.data.goals,
+                }));
+                setLoading(false);
+            } catch(error) {
+                setLoading(false);
+                setError('Error getting profile data.');
+            }
+        };
+        getUserProfileData();
+    }, [token]);
 
     const handleOnProfileUpdate = async (updatedProfile) => {
         try {
-            const { _id: userId } = user || {};
-
-            if (userId){
-                const headers = { Authorization: `Bearer ${token}`};
-
-                const response = await axios.put(`/api/updateprofile/${userId}`, updatedProfile, { headers });
-                const { token: newToken } = response.data;
-                setToken(newToken);
-                setUserProfile(response.data);
-                setProfileUpdate(false);
-            } else {
-                console.error('User is not defined.')
-            }
-        } catch (error) {
-            console.error("Error. Could not update profile data.", error);
+            const response = await axios.post('/api/updateprofile',
+                {profileData: updatedProfile },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            setUserProfileData(response.data.profile);
+            setProfileUpdate(null);
+        } catch (error){
+            console.error('Error updating user profile', error.message);
         }
     };
+
     const handleOnGoalUpdate = async (updatedGoals) => {
         try {
-            const { _id: userId } = user || {};
-
-            if (userId){
-                const headers = { Authorization: `Bearer ${token}`};
-                const response = await axios.put(`/api/updategoals/${userId}`, updatedGoals, { headers });
-                const { token: newToken } = response.data;
-                setToken(newToken);
-                setUserGoals(response.data);
-                setGoalUpdate(false);
-            } else {
-                console.error('User is not defined.')
-            }
-        } catch (error) {
-            console.error("Error. Could not update goal data.", error);
+            const response = await axios.post('/api/updategoals',
+                {goalData: updatedGoals},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            setUserProfileData( response.data.goals);
+            setGoalUpdate(null);
+        } catch (error){
+            console.error('Error updating user profile', error);
         }
     };
+
+    if (loading){
+        return <p>loading...</p>
+    }
+    if (error){
+        return <p>{error}</p>
+    }
 
     return (
         <div>
             <h1>Your Profile</h1>
             <h3>Here you can personalize your profile to help you reach your goals!</h3>
             {goalUpdate ? (
-                <FitnessGoalForm onCancel={() => setGoalUpdate(false)} onUpdateGoals={handleOnGoalUpdate} />
+                <FitnessGoalForm onCancel={() => setGoalUpdate(null)} onUpdateGoals={handleOnGoalUpdate} />
             ) : (
                 <div>
-                    <p>Goal 1: {userGoals.goal1}</p>
-                    <p>Goal 2: {userGoals.goal2}</p>
-                    <p>Goal 3: {userGoals.goal3}</p>
-                    <button onClick={()=> setGoalUpdate(true)}>Update Goals</button>
+                    <p>Goal 1: {userProfileData.goals.goal1}</p>
+                    <p>Goal 2: {userProfileData.goals.goal2}</p>
+                    <p>Goal 3: {userProfileData.goals.goal3}</p>
+                    <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
                 </div>
             )}
             {profileUpdate ? (
-                <ProfileForm onCancel={() => setProfileUpdate(false)} onUpdateProfile={handleOnProfileUpdate}/>
+                <ProfileForm onCancel={() => setProfileUpdate(null)} onUpdateProfile={handleOnProfileUpdate}/>
             ) : (
                 <div>
-                    <p>Name: {userProfile.name}</p>
-                    <p>Age: {userProfile.age}</p>
-                    <p>Gender: {userProfile.gender}</p>
-                    <p>Weight: {userProfile.weight}</p>
-                    <p>Height: {userProfile.height}</p>
-                    <button onClick={() => setProfileUpdate(true)}>Update Profile</button>
+                    <p>Name: {userProfileData.profile.name}</p>
+                    <p>Age: {userProfileData.profile.age}</p>
+                    <p>Weight(kg): {userProfileData.profile.weight}</p>
+                    <p>Height(cm): {userProfileData.profile.height}</p>
+                    <Button variant='primary' size='sm' onClick={() => setProfileUpdate(userProfileData.profile)}>Update Profile</Button>
                 </div>
             )}
-            <BMICalculator weight={userProfile.weight} height={userProfile.height} />
+            <BMICalculator weight={userProfileData.profile.weight} height={userProfileData.profile.height} />
         </div>
     );
 };
