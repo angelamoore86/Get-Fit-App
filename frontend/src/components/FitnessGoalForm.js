@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Button, Form } from 'react-bootstrap'
+import { Button, FormControl, FormLabel } from 'react-bootstrap'
 const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
     const [goals, setGoals] = useState({
-        goal1: '',
-        goal2: '',
-        goal3: '',
+        goalType: '',
+        weightGoal: '',
+        thighStart: '',
+        bicepStart: '',
+        chestStart: '',
     });
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -15,24 +17,40 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
     };
 
     const handleUpdateGoals = (e) => {
-        const updatedGoals = Object.fromEntries(
-            Object.entries(goals).filter(([_, value]) => value !== '')
-        );
-
-        onUpdateGoals(updatedGoals);
+        e.preventDefault();
+        onUpdateGoals(goals);
         onCancel();
         window.location.reload(false);
     }
     return (
         <div>
-            <h3>Your Fitness Goals</h3>
-            <div className="right">
-                <Form.Label>Goal 1: <Form.Control type="text" name="goal1" value={goals.goal1} onChange={handleInputChange} /></Form.Label><br />
-                <Form.Label>Goal 2: <Form.Control type="text" name="goal2" value={goals.goal2} onChange={handleInputChange} /></Form.Label><br />
-                <Form.Label>Goal 3: <Form.Control type="text" name="goal3" value={goals.goal3} onChange={handleInputChange} /></Form.Label><br />
-            </div>
+            <h4>Please select your goal:</h4>
+            <FormLabel>
+                <FormControl as="select" name="goalType" value={goals.goalType} onChange={handleInputChange}>
+                    <option value="">Select Goal:</option>
+                    <option value="loseWeight">Lose Weight</option>
+                    <option value="gainMuscle">Gain Muscle</option>
+                    {/* <option value="increaseActivity">Increase Activity</option> */}
+                </FormControl>
+            </FormLabel><br />
+                {goals.goalType === 'loseWeight' && (
+                    <div>
+                        <FormLabel>Weight Goal: <FormControl type='text' name='weightGoal' 
+                    value={goals.weightGoal} onChange={handleInputChange} /></FormLabel><br />
+                    </div>
+                )}
+                {goals.goalType === 'gainMuscle' && (
+                    <div>
+                        <FormLabel>Thigh Measurement: <FormControl type='text' name='thighStart' 
+                    value={goals.thighStart} onChange={handleInputChange} /></FormLabel>
+                        <FormLabel>Bicep Measurement: <FormControl type='text' name='bicepStart' 
+                    value={goals.bicepStart} onChange={handleInputChange} /></FormLabel>
+                        <FormLabel>Chest Measurement: <FormControl type='text' name='chestStart' 
+                    value={goals.chestStart} onChange={handleInputChange} /></FormLabel>
+                    </div>
+                )}
             <Button variant='primary' size='sm' onClick={handleUpdateGoals}>Update Goals</Button>
-            <Button variant='primary' size='sm' onClick={onCancel}>Cancel</Button>
+            <Button variant='primary' size='sm' onClick={onCancel}>Cancel</Button>    
         </div>
     );
 };

@@ -10,8 +10,8 @@ function BMICalculator({ weight, height }) {
     const bmi = calculateBMI();
 
     return (
-        <div className="center">
-            <p>Your BMI: {bmi}</p>
+        <div className="column-profile-pg">
+            <h4 className="mt-4">Your BMI: {bmi}</h4>
             <img src="/images/bmi.jpg" name="BMI" alt="BMI Index Diagram"></img>
         </div>
     );

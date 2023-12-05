@@ -1,20 +1,71 @@
-import { useState, useEffect } from 'react';
-import { Button } from 'react-bootstrap'
+import { useState, useEffect, useCallback } from 'react';
+import { Button, Container, Row, Col} from 'react-bootstrap'
 import axios from 'axios';
 import ProfileForm from '../components/ProfileForm';
 import BMICalculator from '../components/BMICalculator';
 import FitnessGoalForm from '../components/FitnessGoalForm';
+import MeasurementProgressForm from '../components/MeasurementProgressForm';
 import { useToken } from '../useToken';
 
 const ProfilePage = () => {
-    const [token,  ] = useToken();
+    const [token] = useToken();
     const [userProfileData, setUserProfileData] = useState({});
-    // const [profile, setProfile] = useState({});
-    // const [goals, setGoals] = useState({});
     const [profileUpdate, setProfileUpdate] = useState(null);
     const [goalUpdate, setGoalUpdate] = useState(null);
+    const [progress, setProgress] = useState({
+        weightProgress: 0});
+    const [displayMeasurementForm, setDisplayMeasurementForm] = useState(false);
+    const [measurementProgress, setMeasurementProgress] = useState({});
+    const [currentMeasurements, setCurrentMeasurements] = useState({
+        currentThigh: '', currentBicep: '', currentChest: '',
+    });
     const [loading, setLoading ] = useState(true);
     const [error, setError] = useState('');
+
+    const calculateProgress = useCallback(() => {
+        console.log('Calculating Progress...');
+        if(
+            userProfileData &&
+            userProfileData.profile &&
+            userProfileData.profile.weight &&
+            userProfileData.goals
+
+        ){
+        console.log('Current Weight', userProfileData.profile.weight);
+        console.log('Weight Goal:', userProfileData.goals.weightGoal);
+        
+        if (userProfileData.goals.goalType === 'loseWeight'){
+            const weightProgress = userProfileData.profile.weight - userProfileData.goals.weightGoal;
+            console.log('Weight Progress:', weightProgress);
+            return { weightProgress };
+        }
+        if (userProfileData.goals.goalType === 'gainMuscle') {
+            const thighProgress = currentMeasurements.currentThigh - userProfileData.goals.thighStart;
+            const bicepProgress = currentMeasurements.currentBicep - userProfileData.goals.bicepStart;
+            const chestProgress = currentMeasurements.currentChest - userProfileData.goals.chestStart;
+
+            console.log('Current Thigh', thighProgress);
+            console.log('Current Bicep:', bicepProgress);
+            console.log('Current Chest:', chestProgress);
+
+            return { thighProgress, bicepProgress, chestProgress};
+        }
+    }
+        return {};
+    }, [userProfileData, currentMeasurements]);
+
+    const handleMeasurementFormOpen = () => {
+        setDisplayMeasurementForm(true);
+    };
+    const handleMeasurementFormClose = () => {
+        setDisplayMeasurementForm(false);
+    };
+
+    const handleUpdateMeasurements = (updatedMeasurements) => {
+        setCurrentMeasurements(updatedMeasurements);
+        const progressData = calculateProgress(updatedMeasurements);
+        setMeasurementProgress(progressData);
+    };
 
     useEffect(() => {
         const getUserProfileData = async () => {
@@ -37,18 +88,34 @@ const ProfilePage = () => {
         getUserProfileData();
     }, [token]);
 
+    useEffect(() => {
+        const updateProfileData = async () => {
+            const progressData = calculateProgress();
+            setProgress(progressData);
+        };
+        updateProfileData();
+    }, [userProfileData, calculateProgress]);
+
     const handleOnProfileUpdate = async (updatedProfile) => {
         try {
-            const response = await axios.post('/api/updateprofile',
-
-                {profileData: updatedProfile },
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-            setUserProfileData(response.data.profile);
-            setProfileUpdate(null);
+            const filteredProfile = Object.fromEntries(
+                Object.entries(updatedProfile).filter(([key, value]) => value !== '')
+            );
+            const updatedData = {
+                ...userProfileData.profile,
+                ...filteredProfile,
+            };
+            const response = await axios.post('/api/updateprofile', {
+                profileData: updatedData,
+            }, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        setUserProfileData(response.data.profile);
+        setProfileUpdate(null);
+        const progressData = calculateProgress();
+        setProgress(progressData);
         } catch (error){
             console.error('Error updating user profile', error.message);
         }
@@ -56,15 +123,24 @@ const ProfilePage = () => {
 
     const handleOnGoalUpdate = async (updatedGoals) => {
         try {
+            const filteredGoals = Object.fromEntries(
+                Object.entries(updatedGoals).filter(([key, value]) => value !== '')
+            );
+            const updatedData = {
+                ...userProfileData.goals,
+                ...filteredGoals,
+            };
+
             const response = await axios.post('/api/updategoals',
-                {goalData: updatedGoals},
-                {
-                    headers: {
+                { goalData: updatedData},
+                { headers: {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-            setUserProfileData( response.data.goals);
+            setUserProfileData(response.data.goals);
             setGoalUpdate(null);
+            const progressData = calculateProgress();
+            setProgress(progressData);
         } catch (error){
             console.error('Error updating user profile', error);
         }
@@ -76,35 +152,82 @@ const ProfilePage = () => {
     if (error){
         return <p>{error}</p>
     }
-  
+
     return (
-        <div>
-            <h1>Your Profile</h1>
-            <h3>Here you can personalize your profile to help you reach your goals!</h3>
-            {goalUpdate ? (
-                <FitnessGoalForm onCancel={() => setGoalUpdate(null)} onUpdateGoals={handleOnGoalUpdate} />
-            ) : (
-                <div>
-                    <p>Goal 1: {userProfileData.goals.goal1}</p>
-                    <p>Goal 2: {userProfileData.goals.goal2}</p>
-                    <p>Goal 3: {userProfileData.goals.goal3}</p>
-                    <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
-                </div>
-            )}
-            {profileUpdate ? (
-                <ProfileForm onCancel={() => setProfileUpdate(null)} onUpdateProfile={handleOnProfileUpdate}/>
-            ) : (
-                <div>
-                    <p>Name: {userProfileData.profile.name}</p>
-                    <p>Age: {userProfileData.profile.age}</p>
-                    <p>Weight(kg): {userProfileData.profile.weight}</p>
-                    <p>Height(cm): {userProfileData.profile.height}</p>
-                    <Button variant='primary' size='sm' onClick={() => setProfileUpdate(userProfileData.profile)}>Update Profile</Button>
-                </div>
-            )}
-            <BMICalculator weight={userProfileData.profile.weight} height={userProfileData.profile.height} />
-        </div>
+        <Container className="my-4" >
+            <h1>Welcome {userProfileData.profile.name}</h1>
+            <h3>Please enter your profile and goal details below.</h3>
+            <div className='mb-4' />
+            <Row>
+                <Col sm={6} style={{backgroundColor: '#F59962', textAlign: 'left', padding: '10px'}} >
+                    {profileUpdate ? (
+                        <ProfileForm onCancel={() => setProfileUpdate(null)} onUpdateProfile={handleOnProfileUpdate}/>
+                    ) : (
+                        <div >
+                            <h4>Profile:</h4>
+                            <p><b>Name:</b> {userProfileData.profile.name}</p>
+                            <p><b>Age:</b> {userProfileData.profile.age}</p>
+                            <p><b>Weight(kg):</b> {userProfileData.profile.weight}</p>
+                            <p><b>Height(cm):</b> {userProfileData.profile.height}</p>
+
+                            <Button variant='primary' size='sm' onClick={() => setProfileUpdate(userProfileData.profile)}>Update Profile</Button>
+                            <BMICalculator  weight={userProfileData.profile.weight} height={userProfileData.profile.height} />
+                        </div>
+                    )}
+                </Col>
+                <Col sm={6} style={{backgroundColor: '#F59962', textAlign: 'left', padding: '10px'}} >
+                    {goalUpdate ? (
+                        <FitnessGoalForm onCancel={() => setGoalUpdate(null)} onUpdateGoals={handleOnGoalUpdate} />
+                    ) : displayMeasurementForm ? (
+                        <MeasurementProgressForm onClose={handleMeasurementFormClose} onUpdateMeasurements={handleUpdateMeasurements} />
+                    ) : (
+                        <div>
+                            <h4>Goals:</h4>
+                            {userProfileData.goals.goalType === 'loseWeight' && (
+                            <div>
+                                <p><b>Goal:</b> Lose Weight</p>
+                                <p><b>Weight Goal:</b> {userProfileData.goals.weightGoal}</p>
+                            </div>
+                            )}
+                            {userProfileData.goals.goalType === 'gainMuscle' && (
+                            <div>
+                                <p><b>Goal:</b> Gain Muscle</p>
+                                <p>Starting Measurements</p>
+                                <p><b>Thigh:</b> {userProfileData.goals.thighStart}</p>
+                                <p><b>Bicep:</b> {userProfileData.goals.bicepStart}</p>
+                                <p><b>Chest:</b> {userProfileData.goals.chestStart}</p>
+                            </div>
+                            )}
+                            <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
+                        </div>
+                    )} 
+                    <div className='mb-4'/>
+                    <h4 className='mt-4'>Goal Progress:</h4>
+                    {userProfileData.goals.goalType === 'loseWeight' && (  
+                        <p><b>Weight Progress:</b><br/>
+                        {progress.weightProgress > 0
+                            ? ` You are ${progress.weightProgress} kg away from you goal weight!`
+                            : progress.weightProgress <= 0
+                            ? ' Congrats! You have reached you goal weight loss goal!'
+                            : ''}</p>
+                    )}
+                    {userProfileData.goals.goalType === 'gainMuscle' && (
+                        <div>
+                            <p><b>Thigh:</b> {progress.thighProgress > 0 ? `Increased by ${progress.thighProgress} cm`
+                                : 'No progress'}</p>
+                            <p><b>Bicep:</b> {progress.bicepProgress > 0 ? `Increased by ${progress.bicepProgress} cm`
+                                : 'No progress'}</p>
+                            <p><b>Chest:</b> {progress.chestProgress > 0 ? `Increased by ${progress.chestProgress} cm`
+                                : 'No progress'}</p>
+                            <Button variant='primary' size='sm' onClick={handleMeasurementFormOpen}>Update Measurements</Button>
+                        </div>
+
+                    )}
+                </Col>
+            </Row>
+        </Container>
     );
 };
 
 export default ProfilePage;
+
