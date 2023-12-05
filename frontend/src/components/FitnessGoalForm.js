@@ -41,11 +41,11 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
                 )}
                 {goals.goalType === 'gainMuscle' && (
                     <div>
-                        <FormLabel>Thigh Measurement: <FormControl type='text' name='thighStart' 
+                        <FormLabel>Thigh Measurement(cm): <FormControl type='text' name='thighStart' 
                     value={goals.thighStart} onChange={handleInputChange} /></FormLabel>
-                        <FormLabel>Bicep Measurement: <FormControl type='text' name='bicepStart' 
+                        <FormLabel>Bicep Measurement(cm):: <FormControl type='text' name='bicepStart' 
                     value={goals.bicepStart} onChange={handleInputChange} /></FormLabel>
-                        <FormLabel>Chest Measurement: <FormControl type='text' name='chestStart' 
+                        <FormLabel>Chest Measurement(cm):: <FormControl type='text' name='chestStart' 
                     value={goals.chestStart} onChange={handleInputChange} /></FormLabel>
                     </div>
                 )}

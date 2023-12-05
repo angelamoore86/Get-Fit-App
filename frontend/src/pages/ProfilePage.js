@@ -12,10 +12,9 @@ const ProfilePage = () => {
     const [userProfileData, setUserProfileData] = useState({});
     const [profileUpdate, setProfileUpdate] = useState(null);
     const [goalUpdate, setGoalUpdate] = useState(null);
-    const [progress, setProgress] = useState({
-        weightProgress: 0});
+    const [progress, setProgress] = useState({ 
+        weightProgress: 0, thighProgress: 0, bicepProgress: 0, chestProgress: 0});
     const [displayMeasurementForm, setDisplayMeasurementForm] = useState(false);
-    const [measurementProgress, setMeasurementProgress] = useState({});
     const [currentMeasurements, setCurrentMeasurements] = useState({
         currentThigh: '', currentBicep: '', currentChest: '',
     });
@@ -23,34 +22,24 @@ const ProfilePage = () => {
     const [error, setError] = useState('');
 
     const calculateProgress = useCallback(() => {
-        console.log('Calculating Progress...');
         if(
             userProfileData &&
             userProfileData.profile &&
             userProfileData.profile.weight &&
             userProfileData.goals
-
         ){
-        console.log('Current Weight', userProfileData.profile.weight);
-        console.log('Weight Goal:', userProfileData.goals.weightGoal);
-        
-        if (userProfileData.goals.goalType === 'loseWeight'){
-            const weightProgress = userProfileData.profile.weight - userProfileData.goals.weightGoal;
-            console.log('Weight Progress:', weightProgress);
-            return { weightProgress };
-        }
-        if (userProfileData.goals.goalType === 'gainMuscle') {
-            const thighProgress = currentMeasurements.currentThigh - userProfileData.goals.thighStart;
-            const bicepProgress = currentMeasurements.currentBicep - userProfileData.goals.bicepStart;
-            const chestProgress = currentMeasurements.currentChest - userProfileData.goals.chestStart;
+            if (userProfileData.goals.goalType === 'loseWeight'){
+                const weightProgress = userProfileData.profile.weight - userProfileData.goals.weightGoal;
+                return { weightProgress };
+            }
+            if (userProfileData.goals.goalType === 'gainMuscle') {
+                const thighProgress = currentMeasurements.currentThigh - userProfileData.goals.thighStart;
+                const bicepProgress = currentMeasurements.currentBicep - userProfileData.goals.bicepStart;
+                const chestProgress = currentMeasurements.currentChest - userProfileData.goals.chestStart;
 
-            console.log('Current Thigh', thighProgress);
-            console.log('Current Bicep:', bicepProgress);
-            console.log('Current Chest:', chestProgress);
-
-            return { thighProgress, bicepProgress, chestProgress};
+                return { thighProgress, bicepProgress, chestProgress};
+            }
         }
-    }
         return {};
     }, [userProfileData, currentMeasurements]);
 
@@ -63,8 +52,6 @@ const ProfilePage = () => {
 
     const handleUpdateMeasurements = (updatedMeasurements) => {
         setCurrentMeasurements(updatedMeasurements);
-        const progressData = calculateProgress(updatedMeasurements);
-        setMeasurementProgress(progressData);
     };
 
     useEffect(() => {
@@ -186,16 +173,16 @@ const ProfilePage = () => {
                             {userProfileData.goals.goalType === 'loseWeight' && (
                             <div>
                                 <p><b>Goal:</b> Lose Weight</p>
-                                <p><b>Weight Goal:</b> {userProfileData.goals.weightGoal}</p>
+                                <p><b>Weight Goal(kg):</b> {userProfileData.goals.weightGoal}</p>
                             </div>
                             )}
                             {userProfileData.goals.goalType === 'gainMuscle' && (
                             <div>
                                 <p><b>Goal:</b> Gain Muscle</p>
                                 <p>Starting Measurements</p>
-                                <p><b>Thigh:</b> {userProfileData.goals.thighStart}</p>
-                                <p><b>Bicep:</b> {userProfileData.goals.bicepStart}</p>
-                                <p><b>Chest:</b> {userProfileData.goals.chestStart}</p>
+                                <p><b>Thigh(cm):</b> {userProfileData.goals.thighStart}</p>
+                                <p><b>Bicep(cm):</b> {userProfileData.goals.bicepStart}</p>
+                                <p><b>Chest(cm):</b> {userProfileData.goals.chestStart}</p>
                             </div>
                             )}
                             <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
@@ -208,7 +195,7 @@ const ProfilePage = () => {
                         {progress.weightProgress > 0
                             ? ` You are ${progress.weightProgress} kg away from you goal weight!`
                             : progress.weightProgress <= 0
-                            ? ' Congrats! You have reached you goal weight loss goal!'
+                            ? ' Congrats! You have reached your weight loss goal!'
                             : ''}</p>
                     )}
                     {userProfileData.goals.goalType === 'gainMuscle' && (
@@ -221,7 +208,6 @@ const ProfilePage = () => {
                                 : 'No progress'}</p>
                             <Button variant='primary' size='sm' onClick={handleMeasurementFormOpen}>Update Measurements</Button>
                         </div>
-
                     )}
                 </Col>
             </Row>
