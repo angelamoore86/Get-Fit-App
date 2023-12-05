@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styles from './FitnessLogPage.module.css';
+import { useToken } from '../useToken';
 
 function FitnessLogPage() {
+  const [token] = useToken();
   const [date, setDate] = useState('');
   const [cardio, setCardio] = useState('');
   const [strengthTraining, setStrengthTraining] = useState('');
@@ -11,30 +12,45 @@ function FitnessLogPage() {
   const handleCardioChange = (e) => setCardio(e.target.value);
   const handleStrengthTrainingChange = (e) => setStrengthTraining(e.target.value);
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
+
     try {
-      if (cardio || strengthTraining) {
-        await axios.post('http://localhost:8000/api/workout/submit', {
-          date, 
-          cardioData: cardio, 
-          strengthTrainingData: strengthTraining
-        });
+      if (!token) {
+        console.error('No token available.');
+        return;
+      }
+
+      const response = await fetch('/api/fitnesslog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          date,
+          cardioData: cardio,
+          strengthTrainingData: strengthTraining,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Fitness log saved successfully');
+        setDate('');
         setCardio('');
         setStrengthTraining('');
+      } else {
+        console.error('Error saving fitness log');
       }
-      console.log('Submission successful');
     } catch (error) {
-      console.error('Error during submission:', error);
+      console.error('Error saving fitness log:', error);
     }
-  };
-  
-  
+  }
 
   return (
     <div className={styles.container}>
       <h1 className={styles.textCenter}>Fitness Log Page</h1>
-      
+
       <form onSubmit={handleSubmit}>
         <div className={styles.dateSection}>
           <label>

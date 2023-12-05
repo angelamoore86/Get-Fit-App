@@ -5,6 +5,9 @@ import { updateProfileRoute } from "./updateProfileRoute.js";
 import { getProfileRoute } from "./getProfileRoute.js";
 import { updateGoalRoute } from "./updateGoalRoute.js";
 import { getGoalRoute } from "./getGoalRoute.js";
+import { intakeLogRoute } from './intakeLogRoute.js';
+import { fitnessLogRoute } from "./fitnessLogRoute.js";
+ 
 
 export const routes = [
     testRoute,
@@ -14,4 +17,6 @@ export const routes = [
     updateProfileRoute,
     getGoalRoute,
     updateGoalRoute,
+    intakeLogRoute,
+    fitnessLogRoute,
 ];
