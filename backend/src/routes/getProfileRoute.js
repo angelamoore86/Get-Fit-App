@@ -23,13 +23,12 @@ export const getProfileRoute = {
             if (!user) {
                 return res.status(404).json({message: "User not found."});
             }
-            const {profile, goals, progress} = user;
+            const {profile, goals } = user;
 
             res.status(200).json({
                 email,
                 profile,
-                goals,
-                progress
+                goals
             });
 
         } catch (error){
