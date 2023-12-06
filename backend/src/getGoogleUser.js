@@ -12,7 +12,6 @@ export const getGoogleUser = async ({ code }) => {
             getAccessAndBearerTokenUrl({ accessToken: tokens.access_token }),
             { headers: { Authorization: `Bearer ${tokens.id_token}`} },
         );
-        console.log('Google API response', response.data);
         return response.data;
     } catch (error){
         console.error('Error in getGoogleUser:', error);

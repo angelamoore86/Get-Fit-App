@@ -1,11 +1,14 @@
-import { Link } from 'react-router-dom';
 import {Nav, Navbar, Container} from 'react-bootstrap'
 import { LogOutButton } from './components/LogOutButton';
 import userProfileData from "./pages/ProfilePage";
 import './App.css'
+import { useUser } from './useUser';
 
 
 const NavigationBar = () => {
+    const { user } = useUser();
+    // const { email } = user;
+
     return (
         <header>
             <Navbar bg='secondary' data-bs-theme='dark' expand='lg' variant='light' sticky>
@@ -20,7 +23,7 @@ const NavigationBar = () => {
                             <LogOutButton />
                         </Nav>
                     </Navbar.Collapse>
-                    <Navbar.Text>Signed in as: <a href='/login'>{userProfileData.name}</a></Navbar.Text>
+                    <Navbar.Text>Signed in as: {user ? <a href='/login'>{user.email}</a> : 'Guest'}</Navbar.Text>
                 </Container>
             </Navbar>
         </header>
