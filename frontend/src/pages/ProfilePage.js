@@ -169,7 +169,7 @@ const ProfilePage = () => {
                         <MeasurementProgressForm onClose={handleMeasurementFormClose} onUpdateMeasurements={handleUpdateMeasurements} />
                     ) : (
                         <div>
-                            <h4>Goals:</h4>
+                            <h4 className='mb-4'>Goals:</h4>
                             {userProfileData.goals.goalType === 'loseWeight' && (
                             <div>
                                 <p><b>Goal:</b> Lose Weight</p>
@@ -188,15 +188,18 @@ const ProfilePage = () => {
                             <Button variant='primary' size='sm' onClick={()=> setGoalUpdate(userProfileData.goals)}>Update Goals</Button>
                         </div>
                     )} 
-                    <div className='mb-4'/>
-                    <h4 className='mt-4'>Goal Progress:</h4>
+                    <div/>
+                    <h4 className='mt-4 mb-4'>Goal Progress:</h4>
                     {userProfileData.goals.goalType === 'loseWeight' && (  
+                    <div style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}> 
                         <p><b>Weight Progress:</b><br/>
                         {progress.weightProgress > 0
                             ? ` You are ${progress.weightProgress} kg away from you goal weight!`
                             : progress.weightProgress <= 0
                             ? ' Congrats! You have reached your weight loss goal!'
                             : ''}</p>
+                    </div>
+                        
                     )}
                     {userProfileData.goals.goalType === 'gainMuscle' && (
                         <div>
