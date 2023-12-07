@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, FormLabel } from 'react-bootstrap'
+import {Button, Form, FormControl, FormLabel} from 'react-bootstrap'
 const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
     const [goals, setGoals] = useState({
         goalType: '',
@@ -26,12 +26,12 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
         <div>
             <h4>Please select your goal:</h4>
             <FormLabel>
-                <FormControl as="select" name="goalType" value={goals.goalType} onChange={handleInputChange}>
-                    <option value="">Select Goal:</option>
+                <Form.Select as="select" name="goalType" value={goals.goalType} onChange={handleInputChange}>
+                    <option value="">Select Goal</option>
                     <option value="loseWeight">Lose Weight</option>
                     <option value="gainMuscle">Gain Muscle</option>
                     {/* <option value="increaseActivity">Increase Activity</option> */}
-                </FormControl>
+                </Form.Select>
             </FormLabel><br />
                 {goals.goalType === 'loseWeight' && (
                     <div>

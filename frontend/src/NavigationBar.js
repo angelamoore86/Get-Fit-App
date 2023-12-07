@@ -1,4 +1,4 @@
-import {Nav, Navbar, Container} from 'react-bootstrap'
+import {Nav, Navbar, Container, NavbarBrand, Image} from 'react-bootstrap'
 import { LogOutButton } from './components/LogOutButton';
 import userProfileData from "./pages/ProfilePage";
 import './App.css'
@@ -13,6 +13,9 @@ const NavigationBar = () => {
         <header>
             <Navbar bg='secondary' data-bs-theme='dark' expand='lg' variant='light' sticky>
                 <Container>
+                    <NavbarBrand >
+                        Get Fit
+                    </NavbarBrand>
                     <Navbar.Toggle aria-controls='basic-navbar-nav' />
                     <Navbar.Collapse id='basic-navbar-nav' >
                         <Nav className='ml-auto'>
@@ -27,7 +30,6 @@ const NavigationBar = () => {
                 </Container>
             </Navbar>
         </header>
-
     );
 }
 
