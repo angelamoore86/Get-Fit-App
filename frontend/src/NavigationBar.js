@@ -1,4 +1,4 @@
-import {Nav, Navbar, Container, NavbarBrand, Image} from 'react-bootstrap'
+import {Nav, Navbar, Container, NavbarBrand} from 'react-bootstrap'
 import { LogOutButton } from './components/LogOutButton';
 import userProfileData from "./pages/ProfilePage";
 import './App.css'
