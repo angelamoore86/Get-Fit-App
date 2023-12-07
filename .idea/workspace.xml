@@ -5,33 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82bf1d22-113a-47af-abb5-c43b9d947143" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/FitnessLogPage.module.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/getfiticon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/getGoogleUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/getGoogleUser.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/getGoalRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/getGoalRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/getProfileRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/getProfileRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/googleOauthCallbackRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/googleOauthCallbackRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/updateGoalRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/updateGoalRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/routes/updateProfileRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/routes/updateProfileRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/updateOrCreateUserFromOauth.js" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/updateOrCreateUserFromOauth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo192.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/logo512.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/NavBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/NavigationBar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/BMICalculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/BMICalculator.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/NavigationBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/NavigationBar.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/FitnessGoalForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/FitnessGoalForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/LogOutButton.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/LogOutButton.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ProfileForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ProfileForm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/FitnessLogPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/FitnessLogPage.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/HomePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/HomePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/ProfilePage.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/ProfilePage.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/useToken.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/useToken.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/useUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/useUser.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +31,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -61,22 +50,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;development&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/marknoseworthy/Desktop/Get-Fit-App&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "minor-tweaks",
+    "last_opened_file_path": "/Users/marknoseworthy/Desktop/Get-Fit-App/frontend/src/images",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/images" />
+      <recent name="$PROJECT_DIR$/frontend/src/pages/images" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/public" />
+    </key>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -89,10 +87,22 @@
       <workItem from="1700758074697" duration="1006000" />
       <workItem from="1701022022278" duration="18085000" />
       <workItem from="1701129188751" duration="2265000" />
+      <workItem from="1701962750020" duration="8338000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

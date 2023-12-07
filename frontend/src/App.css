@@ -71,12 +71,9 @@ body, html {
   background-size: cover;
 }
 .page-links {
-  position: fixed;
-  bottom: 0;
-  right: 100px;
-  width: 100%;
+  position: static;
   padding: 8px;
-  
+
 }
 
 

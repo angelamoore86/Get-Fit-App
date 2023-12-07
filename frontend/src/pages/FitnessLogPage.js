@@ -19,7 +19,7 @@ function FitnessLogPage() {
                 <div className="col-12">
                     <Form.Group className="mb-2">
                         <Form.Label>
-                            Date:
+                            <h4>Date:</h4>
                             <Form.Control type="date" value={date} onChange={handleDateChange} />
                         </Form.Label>
                     </Form.Group>
@@ -33,8 +33,8 @@ function FitnessLogPage() {
                 <div className="col-md-6">
                     <Form.Group className="mb-2">
                         <Form.Label>
-                            Cardio:
-                            <Form.Control as='textarea' rows={5} value={cardio} onChange={handleCardioChange} placeholder='Enter cardio...' />
+                            <h4>Cardio:</h4>
+                            <Form.Control as='textarea' rows={8} value={cardio} onChange={handleCardioChange} placeholder='Enter cardio...' />
                         </Form.Label>
                     </Form.Group>
                     <div>
@@ -42,12 +42,12 @@ function FitnessLogPage() {
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="mb-2">
-                        <label>
-                            Strength Training:
-                            <textarea className="form-control form-control-lg large-input" value={strengthTraining} onChange={handleStrengthTrainingChange} placeholder='Enter Strength Training...' rows="3"></textarea>
-                        </label>
-                    </div>
+                    <Form.Group className="mb-2">
+                        <Form.Label>
+                            <h4>Strength Training:</h4>
+                            <Form.Control as='textarea' rows={8} value={strengthTraining} onChange={handleStrengthTrainingChange} placeholder='Enter Strength Training...' />
+                        </Form.Label>
+                    </Form.Group>
                     <div>
                         <Button variant='primary' size='sm'>Submit Strength</Button>
                     </div>
