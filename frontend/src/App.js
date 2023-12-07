@@ -1,7 +1,6 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PrivateRoute } from './PrivateRoute';
-import NavBar from './NavBar';
 import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import FitnessLogPage from './pages/FitnessLogPage';
@@ -9,15 +8,16 @@ import IntakeLogPage from './pages/IntakeLogPage';
 import FitnessGoalPage from './pages/FitnessGoalPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from "./pages/LoginPage";
+import NavigationBar from "./NavigationBar";
+
 
 function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <NavBar />
+        <NavigationBar />
         <div id="page-body">
           <Routes>
-            <Route path="/login" element={<LoginPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route 
@@ -51,6 +51,7 @@ function App() {
         </div>
       </div>
     </BrowserRouter>
+
   );
 }
 
