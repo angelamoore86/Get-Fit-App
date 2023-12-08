@@ -4,10 +4,12 @@ import { googleOauthCallbackRoute } from "./googleOauthCallbackRoute.js";
 import { updateProfileRoute } from "./updateProfileRoute.js";
 import { getProfileRoute } from "./getProfileRoute.js";
 import { updateGoalRoute } from "./updateGoalRoute.js";
-import { intakeLogRoute } from './intakeLogRoute.js';
+import { postIntakeLogRoute } from './postIntakeLogRoute.js';
 import { postFitnessLogRoute } from "./postFitnessLogRoute.js";
 import { getFitnessLogRoute } from "./getFitnessLogRoute.js";
-import { getLogDatesRoute } from "./getLogDatesRoute.js";
+import { getFitnessLogDatesRoute } from "./getFitnessLogDatesRoute.js";
+import { getIntakeLogRoute } from './getIntakeLogsRoute.js';
+import { getIntakeLogDatesRoute } from "./getIntakeLogDatesRoute.js";
  
 export const routes = [
     testRoute,
@@ -16,8 +18,10 @@ export const routes = [
     getProfileRoute,
     updateProfileRoute,
     updateGoalRoute,
-    intakeLogRoute,
+    postIntakeLogRoute,
     postFitnessLogRoute,
     getFitnessLogRoute,
-    getLogDatesRoute,
+    getFitnessLogDatesRoute,
+    getIntakeLogRoute,
+    getIntakeLogDatesRoute,
 ];

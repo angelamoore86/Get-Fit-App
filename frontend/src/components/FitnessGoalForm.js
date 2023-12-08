@@ -8,6 +8,7 @@ const FitnessGoalForm = ({ onCancel, onUpdateGoals }) => {
         bicepStart: '',
         chestStart: '',
     });
+    
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setGoals((prevGoals) => ({

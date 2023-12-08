@@ -20,14 +20,19 @@ export const postFitnessLogRoute = {
 
       const db = getDbConnection('Get-Fit-DB');
 
+      const user = await db.collection('fitnessLogs').findOne({email});
+
+      if(!user) {
+        await db.collection('fitnessLogs').insertOne({email, fitnesslogs: []});
+      }
       const result = await db.collection('fitnessLogs').updateOne(
         {email: email },
         { $push: { fitnesslogs: 
-          {date: date, cardio: cardioData, strengthTraining: strengthTrainingData},
-       },
-      },
-        { upsert: true}
-      );
+          {date, cardioData, strengthTrainingData},
+        },
+        },
+          { upsert: true}
+        );
 
       if (result.modifiedCount === 0) {
         return res.status(500).json({ message: 'Failed to insert fitness log.' });

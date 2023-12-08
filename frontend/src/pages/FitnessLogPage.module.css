@@ -10,13 +10,6 @@
   margin-bottom: 1.5rem;
 }
 
-.dateSection {
-  text-align: left;
-  margin-bottom: 20px;
-  width: auto;
-  max-width: 300px;
-}
-
 .formControl {
   margin-bottom: 10px;
   display: block; 
@@ -29,7 +22,7 @@
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
   font-size: 18px;
-  height: 300px;
+  height: 150px;
 }
 
 .btnDark {
@@ -47,14 +40,27 @@
 .activitySection {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.cardio, .strengthTraining {
-  flex: 1;
+.dateSection, .cardio, .strengthTraining {
+  /* flex: 1; */
   margin-right: 10px;
-  padding: 20px;
+  padding: 10px;
+  text-align: left;
 }
 
 .strengthTraining {
   margin-right: 0;
+}
+
+.formSection {
+    width: calc(50% - 10px);
+    margin-right: 10px;
+  }
+
+.logSection {
+width: calc(50% - 10px);
+margin-left: 10px;
+margin-top: -300px;
 }

@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getDbConnection } from '../db.js';
 
-export const intakeLogRoute = {
+export const postIntakeLogRoute = {
   path: '/api/intakelog',
   method: 'post',
   handler: async (req, res) => {
@@ -20,17 +20,23 @@ export const intakeLogRoute = {
 
       const db = getDbConnection('Get-Fit-DB');
 
-      const result = await db.collection('intakelogs').insertOne({
-        email,
-        date,
-        foodIntake,
-        carbohydrates,
-        protein,
-        fats,
-        water,
-      });
+      const user = await db.collection('intakeLogs').findOne({email});
 
-      if (!result.insertedId) {
+      if(!user) {
+        await db.collection('intakeLogs').insertOne({email, intakelogs: []});
+      }
+
+      const result = await db.collection('intakeLogs').updateOne(
+        { email: email },
+        { 
+          $push: { intakelogs: 
+          {date, foodIntake, carbohydrates, protein, fats, water},
+        },
+        },
+          {upsert: true}
+        );
+
+      if (result.modifiedCount === 0) {
         return res.status(500).json({ message: 'Failed to insert intake log.' });
       }
 

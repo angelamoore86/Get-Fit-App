@@ -179,7 +179,7 @@ const ProfilePage = () => {
                             {userProfileData.goals.goalType === 'gainMuscle' && (
                             <div>
                                 <p><b>Goal:</b> Gain Muscle</p>
-                                <p>Starting Measurements</p>
+                                <p><b>Starting Measurements:</b></p>
                                 <p><b>Thigh(cm):</b> {userProfileData.goals.thighStart}</p>
                                 <p><b>Bicep(cm):</b> {userProfileData.goals.bicepStart}</p>
                                 <p><b>Chest(cm):</b> {userProfileData.goals.chestStart}</p>

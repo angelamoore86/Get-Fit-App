@@ -1,8 +1,8 @@
 import { getDbConnection } from '../db.js';
 import jwt from 'jsonwebtoken';
 
-export const getLogDatesRoute = {
-    path: '/api/getlogdates',
+export const getIntakeLogDatesRoute = {
+    path: '/api/getintakelogdates',
     method: 'get',
     handler: async (req, res) => {
         try{
@@ -18,7 +18,7 @@ export const getLogDatesRoute = {
 
             const db = getDbConnection('Get-Fit-DB');
 
-            const logDates = await db.collection('fitnessLogs').distinct('fitnesslogs.date', {email});
+            const logDates = await db.collection('intakeLogs').distinct('intakelogs.date', {email});
 
             res.status(200).json({ dates: logDates });
         } catch (error) {
