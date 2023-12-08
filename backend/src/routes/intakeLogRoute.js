@@ -14,14 +14,14 @@ export const intakeLogRoute = {
       }
 
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decodedToken.id;
+      const email = decodedToken.email;
 
       const { date, foodIntake, carbohydrates, protein, fats, water } = req.body;
 
-      const db = getDbConnection('Get-Fit-App');
+      const db = getDbConnection('Get-Fit-DB');
 
       const result = await db.collection('intakelogs').insertOne({
-        userId,
+        email,
         date,
         foodIntake,
         carbohydrates,

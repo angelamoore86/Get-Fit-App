@@ -17,7 +17,7 @@ export const updateProfileRoute = {
             const email = decodedToken.email;
             const { profileData } = req.body;
 
-            const db = getDbConnection('react-auth-db');
+            const db = getDbConnection('Get-Fit-DB');
 
             const result = await db.collection('users').findOneAndUpdate(
                 { email: email },
@@ -25,7 +25,7 @@ export const updateProfileRoute = {
                 { returnDocument: 'after'}
             );
 
-            if (!result.value){
+            if (result.modifiedCount === 0){
                 return res.status(404).json({message: 'Profile not found.'});
             }
 

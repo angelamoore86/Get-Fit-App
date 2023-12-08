@@ -5,10 +5,7 @@ let client;
 
 export const initializeDbConnection = async () => {
   try {
-    client = await MongoClient.connect(process.env.MONGO_CONNECT, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
+    client = await MongoClient.connect(process.env.MONGO_CONNECT, {});
     console.log('Connected to MongoDB');
   } catch (error) {
     console.error('Failed to connect to MongoDB', error);

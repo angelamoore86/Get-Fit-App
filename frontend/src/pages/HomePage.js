@@ -10,9 +10,10 @@ const HomePage = () => {
             <div className='mt-5 mb-5' >
 
                 <p style={{ fontSize: "1.2rem" }}>Get Fit will help you track progress towards your fitness goals.
-                 You will choose your target goal, whether it is to lose weight or gain muscle and show your progress.</p>
+                 You will choose your target goal, whether it is to lose weight or gain muscle and see your progress.</p>
                 <p style={{ fontSize: "1.2rem" }}>It is a convenient place to store your daily logs for cardio and strength training.
-                You can also log your daily nutritional intake to help you towards completing your goal. Good luck with reaching your goal!</p>
+                You can also log your daily nutritional intake to help you towards completing your goal. </p>
+                <p style={{ fontSize: "1.2rem" }}>Good luck with reaching your goal!</p>
                 {user ? null : <><p style={{ fontSize: "1.2rem" }}>Please log in with Google to begin.</p>
                 <LoginPage/></>}
             </div>
@@ -32,8 +33,7 @@ const HomePage = () => {
                     </Col>
                 </Row>
             </Container>
-        </div>
-        
+        </div>  
     );
 }
 

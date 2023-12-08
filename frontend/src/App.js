@@ -5,7 +5,6 @@ import HomePage from './pages/HomePage';
 import ProfilePage from './pages/ProfilePage';
 import FitnessLogPage from './pages/FitnessLogPage';
 import IntakeLogPage from './pages/IntakeLogPage';
-import FitnessGoalPage from './pages/FitnessGoalPage';
 import NotFoundPage from './pages/NotFoundPage';
 import LoginPage from "./pages/LoginPage";
 import NavigationBar from "./NavigationBar";
@@ -28,8 +27,6 @@ function App() {
                 </PrivateRoute>
               } 
             />
-            <Route path="/fitnessgoal" element={<FitnessGoalPage />} />
-
             <Route 
               path="/fitnesslog" 
               element={
