@@ -8,7 +8,7 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
         email,
     } = oauthUserInfo;
 
-    const db = getDbConnection('react-auth-db');
+    const db = getDbConnection('Get-Fit-DB');
     const existingUser = await db.collection('users').findOne({ email });
 
     if (existingUser) {
@@ -18,16 +18,16 @@ export const updateOrCreateUserFromOauth = async ({ oauthUserInfo }) => {
             { returnOriginal: false },
         );
 
-        return { email: result.email, googleId: result.googleId, isVerified: result.isVerified, info: result.info, profile: result.profile, goals: result.goals};
+        return { email: result.email, googleId: result.googleId, isVerified: result.isVerified,
+             profile: result.profile, goals: result.goals};
     } else {
         const result = await db.collection('users').insertOne({
             email,
             googleId,
             isVerified,
-            info: {},
             profile: {},
             goals: {},
         });
-        return { email: email, googleId: googleId, isVerified: isVerified, info: {}, profile: {}, goals: {}};
+        return { email: email, googleId: googleId, isVerified: isVerified, profile: {}, goals: {}};
     }
 }

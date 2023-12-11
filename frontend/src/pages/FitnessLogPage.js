@@ -1,60 +1,152 @@
-import React, { useState } from 'react';
-import './FitnessLogPage.css';
-import { Button, Form } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react';
+import styles from './FitnessLogPage.module.css';
+import { useToken } from '../useToken';
+import axios from 'axios';
 
 function FitnessLogPage() {
-    const [date, setDate] = useState('');
-    const [cardio, setCardio] = useState('');
-    const [strengthTraining, setStrengthTraining] = useState('');
+  const [token] = useToken();
+  const [date, setDate] = useState('');
+  const [ selectedDate, setSelectedDate ] = useState('');
+  const [fitnessLog, setFitnessLog ] = useState({});
+  const [cardio, setCardio] = useState('');
+  const [ dateOptions, setDateOptions ] = useState([]);
+  const [strengthTraining, setStrengthTraining] = useState('');
+  const [ displayLog, setDisplayLog ] = useState(false);
 
-    const handleDateChange = (e) => setDate(e.target.value);
-    const handleCardioChange = (e) => setCardio(e.target.value);
-    const handleStrengthTrainingChange = (e) => setStrengthTraining(e.target.value);
+  const handleDateChange = (e) => setDate(e.target.value);
+  const handleCardioChange = (e) => setCardio(e.target.value);
+  const handleStrengthTrainingChange = (e) => setStrengthTraining(e.target.value);
+  const handleSelectedDateChange = (e) => {
+    const newSelectedDate = e.target.value;
+    console.log('Selected Date:', newSelectedDate);
+    setSelectedDate(newSelectedDate);
+    setDisplayLog(true);
+  };
 
-    return (
-        <div className="container">
-            <h1 className="text-center my-4">Fitness Log Page</h1>
+  useEffect(() => {
+    const getFitnessLog = async () => {
+      try{
+        const response = await axios.get(`/api/fitnesslog/${selectedDate}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        console.log('Fitness Log Response:', response)
+        setFitnessLog(response.data);
+      } catch (error){
+        console.error('Error. Could not get goals.', error);    
+      }
+    };
+    if (selectedDate){
+    getFitnessLog();
+  }
+}, [selectedDate, token]);
 
-            <div className="row mb-4">
-                <div className="col-12">
-                    <Form.Group className="mb-2">
-                        <Form.Label>
-                            <h4>Date:</h4>
-                            <Form.Control type="date" value={date} onChange={handleDateChange} />
-                        </Form.Label>
-                    </Form.Group>
-                    <div>
-                        <Button variant='primary' size='sm'>Submit Date</Button>
-                    </div>
-                </div>
+useEffect(() => {
+  const getFitnessLogDates = async () => {
+    try {
+      const response = await axios.get('/api/getfitnesslogdates', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setDateOptions(response.data.dates);
+      setFitnessLog(response.data);
+    } catch (error) {
+      console.error('Error getting log dates:', error);
+    }
+  };
+  getFitnessLogDates();
+}, [token]);
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+
+    try {
+      if (!token) {
+        console.error('No token available.');
+        return;
+      }
+
+      const response = await fetch('/api/fitnesslog', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          date,
+          cardioData: cardio,
+          strengthTrainingData: strengthTraining,
+        }),
+      });
+
+      if (response.ok) {
+        console.log('Fitness log saved successfully');
+        setFitnessLog(response.data);
+        setDate('');
+        setCardio('');
+        setStrengthTraining('');
+        window.location.reload();
+      } else {
+        console.error('Error saving fitness log');
+      }
+    } catch (error) {
+      console.error('Error saving fitness log:', error);
+    }
+  }
+
+  return (
+    <div className={styles.container}>
+      <h1 >Fitness Log Page</h1>
+      <h4>Please fill out form to submit fitness log</h4>
+      
+      <div className={styles.activitySection}>
+        <div className={styles.formSection}>
+          <form onSubmit={handleSubmit}>
+            <div className={styles.dateSection}>
+              <label>
+                Date:
+                <input type="date" className={styles.formControl} value={date} onChange={handleDateChange} />
+              </label>
             </div>
 
-            <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <Form.Group className="mb-2">
-                        <Form.Label>
-                            <h4>Cardio:</h4>
-                            <Form.Control as='textarea' rows={8} value={cardio} onChange={handleCardioChange} placeholder='Enter cardio...' />
-                        </Form.Label>
-                    </Form.Group>
-                    <div>
-                        <Button variant='primary' size='sm'>Submit Cardio</Button>
-                    </div>
-                </div>
-                <div className="col-md-6">
-                    <Form.Group className="mb-2">
-                        <Form.Label>
-                            <h4>Strength Training:</h4>
-                            <Form.Control as='textarea' rows={8} value={strengthTraining} onChange={handleStrengthTrainingChange} placeholder='Enter Strength Training...' />
-                        </Form.Label>
-                    </Form.Group>
-                    <div>
-                        <Button variant='primary' size='sm'>Submit Strength</Button>
-                    </div>
-                </div>
+            <div className={styles.cardio}>
+              <label>
+                Cardio:
+                <textarea className={styles.largeInput} value={cardio} onChange={handleCardioChange} placeholder='Enter cardio...' rows="3"></textarea>
+              </label>
             </div>
+
+            <div className={styles.strengthTraining}>
+              <label>
+                Strength Training:
+                <textarea className={styles.largeInput} value={strengthTraining} onChange={handleStrengthTrainingChange} placeholder='Enter Strength Training...' rows="3"></textarea>
+              </label>
+            </div>
+            <button type="submit" className={styles.btnDark}>Submit</button>
+          </form>
         </div>
-    );
+        <div className={styles.logSection}>
+          <h4>View Past Logs</h4>
+          <select value={selectedDate} onChange={handleSelectedDateChange}>
+            <option value="">Select Date</option>
+            {dateOptions.map((date) => (
+              <option key={date} value={date}>{date}</option>
+            ))}
+          </select>
+          <div className='mt-4'/>
+          {displayLog && (
+            <div >
+              <h4>Fitness Log for {fitnessLog.date}</h4>
+              <p><b>Cardio:</b> {fitnessLog.cardioData}</p>
+              <p><b>Strength Training:</b> {fitnessLog.strengthTrainingData}</p>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default FitnessLogPage;

@@ -6,7 +6,7 @@ export const LogOutButton = () => {
 
     const handleLogOut = () => {
         localStorage.removeItem('token');
-        navigate('/login');
+        navigate('/');
     };
 
     return (
