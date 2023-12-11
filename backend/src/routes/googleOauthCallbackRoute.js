@@ -14,10 +14,10 @@ export const googleOauthCallbackRoute = {
 
         const updatedUser = await updateOrCreateUserFromOauth({ oauthUserInfo }) || {};
 
-        const { _id: id, isVerified, email, info, profile, goals } = updatedUser;
+        const { _id: id, isVerified, email, profile, goals } = updatedUser;
 
         jwt.sign({
-                id, isVerified, email, info, profile, goals
+                id, isVerified, email, profile, goals
             },
             process.env.JWT_SECRET,
             { expiresIn: '2d'},

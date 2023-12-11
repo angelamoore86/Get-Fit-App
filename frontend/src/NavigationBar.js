@@ -1,6 +1,5 @@
 import {Nav, Navbar, Container, NavbarBrand} from 'react-bootstrap'
 import { LogOutButton } from './components/LogOutButton';
-import userProfileData from "./pages/ProfilePage";
 import './App.css'
 import { useUser } from './useUser';
 

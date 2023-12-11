@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import { getDbConnection } from '../db.js';
 
-export const fitnessLogRoute = {
+export const postFitnessLogRoute = {
   path: '/api/fitnesslog',
   method: 'post',
   handler: async (req, res) => {
@@ -14,20 +14,27 @@ export const fitnessLogRoute = {
       }
 
       const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-      const userId = decodedToken.id;
+      const email = decodedToken.email;
 
       const { date, cardioData, strengthTrainingData } = req.body;
 
-      const db = getDbConnection('Get-Fit-App');
+      const db = getDbConnection('Get-Fit-DB');
 
-      const result = await db.collection('fitnesslogs').insertOne({
-        userId,
-        date,
-        cardioData,
-        strengthTrainingData,
-      });
+      const user = await db.collection('fitnessLogs').findOne({email});
 
-      if (!result.insertedId) {
+      if(!user) {
+        await db.collection('fitnessLogs').insertOne({email, fitnesslogs: []});
+      }
+      const result = await db.collection('fitnessLogs').updateOne(
+        {email: email },
+        { $push: { fitnesslogs: 
+          {date, cardioData, strengthTrainingData},
+        },
+        },
+          { upsert: true}
+        );
+
+      if (result.modifiedCount === 0) {
         return res.status(500).json({ message: 'Failed to insert fitness log.' });
       }
 
