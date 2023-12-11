@@ -26,11 +26,11 @@ return (
     <div>
         <h4>Update Measurements: </h4>
         <Form>
-        <FormLabel>Current Thigh: <FormControl type="text" name="currentThigh" value={measurements.currentThigh}
+        <FormLabel>Current Thigh: <FormControl type="number" name="currentThigh" value={measurements.currentThigh}
                 onChange={handleInputChange} /></FormLabel><br />
-        <FormLabel>Current Bicep: <FormControl type="text" name="currentBicep" value={measurements.currentBicep}
+        <FormLabel>Current Bicep: <FormControl type="number" name="currentBicep" value={measurements.currentBicep}
             onChange={handleInputChange} /></FormLabel><br />
-        <FormLabel>Current Chest: <FormControl type="text" name="currentChest" value={measurements.currentChest}
+        <FormLabel>Current Chest: <FormControl type="number" name="currentChest" value={measurements.currentChest}
             onChange={handleInputChange} /></FormLabel><br />
 
         <Button variant='primary' size='sm' onClick={handleUpdateMeasurements}> Update Measurements</Button>
