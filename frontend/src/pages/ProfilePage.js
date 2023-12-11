@@ -127,7 +127,7 @@ const ProfilePage = () => {
                 });
             setUserProfileData((prevData) => ({
                 ...prevData,
-                profile: response.data
+                goals: response.data
             }));
             setGoalUpdate(null);
         } catch (error){
