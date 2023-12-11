@@ -101,7 +101,7 @@ const ProfilePage = () => {
         });
         setUserProfileData((prevData) => ({
             ...prevData,
-            profile: response.data.profile,
+            profile: response.data
         }));
         setProfileUpdate(null);
         } catch (error){
