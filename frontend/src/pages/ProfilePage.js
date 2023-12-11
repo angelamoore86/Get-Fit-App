@@ -99,10 +99,11 @@ const ProfilePage = () => {
                 Authorization: `Bearer ${token}`,
             },
         });
-        setUserProfileData(response.data.profile);
+        setUserProfileData((prevData) => ({
+            ...prevData,
+            profile: response.data.profile,
+        }));
         setProfileUpdate(null);
-        const progressData = calculateProgress();
-        setProgress(progressData);
         } catch (error){
             console.error('Error updating user profile', error.message);
         }
@@ -124,10 +125,11 @@ const ProfilePage = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-            setUserProfileData(response.data.goals);
+            setUserProfileData((prevData) => ({
+                ...prevData,
+                profile: response.data
+            }));
             setGoalUpdate(null);
-            const progressData = calculateProgress();
-            setProgress(progressData);
         } catch (error){
             console.error('Error updating user profile', error);
         }
