@@ -4,7 +4,7 @@ import { updateOrCreateUserFromOauth} from "../updateOrCreateUserFromOauth.js";
 import 'dotenv/config.js';
 
 export const googleOauthCallbackRoute = {
-    path: '/auth/google/callback',
+    path: '/api/auth/google/callback',
     method: 'get',
     handler: async (req, res) => {
 
@@ -23,7 +23,7 @@ export const googleOauthCallbackRoute = {
             { expiresIn: '2d'},
             (err, token) => {
                 if (err) return res.sendStatus(500);
-                res.redirect(`http://localhost:3000/login?token=${token}`);
+                res.redirect(`/login?token=${token}`);
             });
     }
 }
