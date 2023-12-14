@@ -65,10 +65,10 @@ h1, h2, h3, h4 {
 
 body, html {
   background-image: url("../public/images/bg.jpg");
-  height: 100%;
+  height: auto;
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size:cover;
 }
 .page-links {
   position: static;
